@@ -44,6 +44,10 @@ Parameters:
     Type: String
     NoEcho: true
     Default: test-value  # Set the default value here
+  
+  MyKeyName:
+    Type: String
+    Description: dbt-ec2-key # set value to ec2 key pair name
 
 Resources:
   VPC:
@@ -217,7 +221,6 @@ Resources:
         - Key: Name
           Value: !Ref EnvironmentName
       
-
   SSHSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -233,26 +236,6 @@ Resources:
         - Key: Name
           Value: !Ref EnvironmentName
 
-
-  EC2InstanceRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: ec2.amazonaws.com
-            Action: "sts:AssumeRole"
-      Policies:
-        - PolicyName: EC2InstancePolicy
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: Allow
-                Action: "ssm:GetParameter"
-                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/myapp/mysecureparameter"  # Adjust the parameter ARN
-
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
@@ -261,7 +244,7 @@ Resources:
       SecurityGroupIds:
         - !Ref SSHSecurityGroup 
       ImageId: ami-08a52ddb321b32a8c # amazon linux 2023 AMI 
-      IamInstanceProfile: !Ref EC2InstanceRole
+      KeyName: !Ref MyKeyName
       Tags:
         - Key: Name
           Value: !Ref EnvironmentName
@@ -274,12 +257,6 @@ Resources:
           usermod -aG docker ec2-user
           chkconfig docker on
           
-          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource EC2Instance --region ${AWS::Region}
-
-    CreationPolicy:
-      ResourceSignal:
-        Count: 1
-        Timeout: PT15M  # Adjust the timeout as needed
 
 Outputs:
   VPC:
