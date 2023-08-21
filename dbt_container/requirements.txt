@@ -1,0 +1,5 @@
+Jinja2==2.11.3
+dbt-core==1.0
+dbt-snowflake==1.0
+MarkupSafe==2.0.1
+boto3
