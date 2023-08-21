@@ -1,6 +1,7 @@
 # this is what's used for local development and dbt runs
 version: "3.4"
 
+
 services:
   dbt:
     build:
