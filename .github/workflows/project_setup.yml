@@ -1,0 +1,36 @@
+name: Project Setup
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Set up the project to run on GH Actions'
+        required: false
+        type: boolean
+
+jobs:
+  update_prod_target:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Add prod target to profiles.yml
+        run: "python update_profile_with_prod.py"
+

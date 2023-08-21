@@ -1,0 +1,15 @@
+config:
+  send_anonymous_usage_stats: false
+
+dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: '{{ env_var("HOST") }}'
+      user: '{{ env_var("USERNAME") }}'
+      password: '{{ env_var("PASSWORD") }}'
+      port: '{{ env_var("PORT") }}'
+      dbname: '{{ env_var("DATABASE_NAME") }}'
+      schema: '{{ env_var("DEV_SCHEMA") }}'
+      threads: 8
