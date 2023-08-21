@@ -34,3 +34,12 @@ jobs:
       - name: Add prod target to profiles.yml
         run: "python update_profile_with_prod.py"
 
+      - name: Create PR with updated profiles.yml file
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "Add prod target to profiles.yml"
+          commit-message: "Add prod target to profiles.yml"
+          branch: "add-prod-target"
+          base: "main"
+          body: |
+            This pull request adds a new target called "prod" to the `profiles.yml` file
