@@ -27,6 +27,7 @@ jobs:
       PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
       SCHEMA: ${{ secrets.PROD_SCHEMA }}
+      DBT_PROFILES_DIR: project_goes_here
 
     steps:
       - uses: "actions/checkout@main"
@@ -35,8 +36,8 @@ jobs:
         run: pip install -q -r requirements.txt
 
       - name: dbt deps
-        run: dbt deps --profiles-dir project_goes_here
-
+        run: dbt deps
+        
       - name: dbt build
         run: dbt build --target dev
 
