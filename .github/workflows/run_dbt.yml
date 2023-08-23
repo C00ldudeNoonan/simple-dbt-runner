@@ -1,0 +1,38 @@
+name: Manual DBT Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Manually trigger a production dbt run'
+        required: false
+        type: boolean
+
+jobs:
+  update_prod_target:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOST }}
+      DATABASE: ${{ secrets.DATABASE }}
+      USERNAME: ${{ secrets.PROD_USERNAME }}
+      PASSWORD: ${{ secrets.PROD_PASSWORD }}
+      PORT: ${{ secrets.PORT }}
+      SCHEMA: ${{ secrets.PROD_SCHEMA }}
+
+    steps:
+      - uses: "actions/checkout@v3"
+      # - uses: "actions/setup-python@v2"
+      #   with:
+      #     python-version: "3.9"
+      # - name: add prod target to profiles.yml
+      #   run: "python update_profile_with_prod.py"
+
