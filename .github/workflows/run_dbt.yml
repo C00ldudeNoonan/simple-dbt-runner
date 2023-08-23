@@ -35,7 +35,7 @@ jobs:
         run: pip install -q -r requirements.txt
 
       - name: dbt deps
-        run: dbt deps
+        run: dbt deps --profiles-dir project_goes_here
 
       - name: dbt build
         run: dbt build --target dev
