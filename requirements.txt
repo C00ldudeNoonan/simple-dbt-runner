@@ -1,0 +1,3 @@
+dbt-core==1.5.2
+# Put whatever adapter you are using here here
+dbt-postgres==1.5.2
