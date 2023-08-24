@@ -9,7 +9,7 @@ jaffle_shop:
       host: '{{ env_var("HOST") }}'
       user: '{{ env_var("USERNAME") }}'
       password: '{{ env_var("PASSWORD") }}'
-      port: '{{ env_var("PORT")| int }}'
+      port: '{{ env_var("PORT") | int }}'
       dbname: '{{ env_var("DATABASE") }}'
       schema: '{{ env_var("SCHEMA") }}'
       threads: 8
