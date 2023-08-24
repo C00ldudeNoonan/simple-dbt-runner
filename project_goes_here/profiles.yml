@@ -10,6 +10,6 @@ jaffle_shop:
       user: '{{ env_var("USERNAME") }}'
       password: '{{ env_var("PASSWORD") }}'
       port: '{{ env_var("PORT") }}'
-      dbname: '{{ env_var("DATABASE_NAME") }}'
-      schema: '{{ env_var("DEV_SCHEMA") }}'
+      dbname: '{{ env_var("DATABASE") }}'
+      schema: '{{ env_var("SCHEMA") }}'
       threads: 8
