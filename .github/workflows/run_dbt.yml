@@ -27,6 +27,7 @@ jobs:
       PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
       SCHEMA: ${{ secrets.PROD_SCHEMA }}
+      DBT_PROFILES_DIR: ~\project_goes_here
 
     steps:
       - uses: "actions/checkout@main"
