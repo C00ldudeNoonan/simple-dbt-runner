@@ -41,5 +41,7 @@ jobs:
           dbt deps
         
       - name: dbt build
-        run: dbt build --target dev
+        run: |
+          cd project_goes_here 
+          dbt build --target dev
 
