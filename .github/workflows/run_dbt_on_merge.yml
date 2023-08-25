@@ -46,8 +46,7 @@ jobs:
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt seed --full-refresh --select state:modified+
-          dbt run --full-refresh --fail-fast --models state:modified+
+          dbt seed --full-refresh
+          dbt run --full-refresh --fail-fast
           dbt snapshot
           dbt test --fail-fast
-
