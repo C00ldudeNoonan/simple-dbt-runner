@@ -4,8 +4,11 @@ import yaml
 with open('project_goes_here/profiles.yml', 'r') as f:
     profiles = yaml.safe_load(f)
 
+# Get the name of the first profile in the file
+profile_name = list(profiles.keys())[0]
+
 # Add a new target called "prod"
-profiles['jaffle_shop']['outputs']['prod'] = {
+profiles[profile_name]['outputs']['prod'] = {
     'type': 'postgres',
     'host': '{{ env_var("HOST") }}',
     'user': '{{ env_var("PROD_USERNAME") }}',
