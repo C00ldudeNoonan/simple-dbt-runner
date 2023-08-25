@@ -2,7 +2,7 @@ name: Run DBT on Merge to Main
 
 on:
   push:
-    branches: [ "fake_main" ]
+    branches: [ "main" ]
 
 jobs:
   run_on_merge:
@@ -30,7 +30,7 @@ jobs:
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt seed --full-refresh
-          dbt run --full-refresh --fail-fast
-          dbt snapshot
-          dbt test --fail-fast
+          dbt seed --full-refresh --target prod
+          dbt run --full-refresh --fail-fast --target prod
+          dbt snapshot --target prod
+          dbt test --fail-fast --target prod
