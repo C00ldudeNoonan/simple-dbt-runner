@@ -1,0 +1,53 @@
+name: Run DBT on Merge to Main
+
+on:
+  push:
+    branches: [ "main" ]
+  # leaving this for testing
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Manually trigger a dbt run'
+        required: false
+        type: boolean
+
+jobs:
+  run_on_merge:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOST }}
+      DATABASE: ${{ secrets.DATABASE }}
+      USERNAME: ${{ secrets.PROD_USERNAME }}
+      PASSWORD: ${{ secrets.PROD_PASSWORD }}
+      PORT: ${{ secrets.PORT }}
+      SCHEMA: ${{ secrets.PROD_SCHEMA }}
+
+    steps:
+      - uses: "actions/checkout@main"
+
+      - name: install requirements
+        run: pip install -q -r requirements.txt
+
+      - name: dbt deps
+        run: |
+          cd project_goes_here 
+          dbt deps
+        
+# do we need to point to a specific profile?
+      - name: dbt run
+        run: |
+          cd project_goes_here 
+          dbt seed --full-refresh --select state:modified+
+          dbt run --full-refresh --fail-fast --models state:modified+
+          dbt snapshot
+          dbt test --fail-fast
+
