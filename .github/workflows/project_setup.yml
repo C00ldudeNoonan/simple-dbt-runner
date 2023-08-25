@@ -12,6 +12,15 @@ on:
         - info
         - warning
         - debug
+      DatawarehouseType:
+        type: choice
+        required: true
+        description: DWH type
+        options: 
+        - postgres
+        - snowflake
+        - redshift
+        - bigquery
       tags:
         description: 'Set up the project to run on GH Actions'
         required: false
@@ -31,37 +40,8 @@ jobs:
         run: |
           pip install pyyaml
 
-
-      - name: Prompt user for input of DWH type
-        id: input
-        run: |
-          options=("postgres" "redshift" "snowflake" "bigquery")
-          PS3="Select an option: "
-          select opt in "${options[@]}"; do
-              case $opt in
-                  "postgres")
-                      value="postgres"
-                      break
-                      ;;
-                  "redshift")
-                      value="redshift"
-                      break
-                      ;;
-                  "snowflake")
-                      value="snowflake"
-                      break
-                      ;;
-                  "bigquery")
-                      value="bigquery"
-                      break
-                      ;;
-                  *) echo "Invalid option $REPLY";;
-              esac
-          done
-          echo "::set-output name=value::$value"
-
       - name: Add prod target to profiles.yml
-        run: "python update_profile_with_prod.py ${{ steps.input.outputs.value }}"
+        run: "python update_profile_with_prod.py ${{ github.event.inputs.DatawarehouseType }}"
 
       - name: Create PR with updated profiles.yml file
         uses: peter-evans/create-pull-request@v5
