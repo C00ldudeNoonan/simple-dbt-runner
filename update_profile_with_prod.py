@@ -5,7 +5,7 @@ with open('project_goes_here/profiles.yml', 'r') as f:
     profiles = yaml.safe_load(f)
 
 # Add a new target called "prod"
-profiles['dbt_project']['outputs']['prod'] = {
+profiles['jaffle_shop']['outputs']['prod'] = {
     'type': 'postgres',
     'host': '{{ env_var("HOST") }}',
     'user': '{{ env_var("PROD_USERNAME") }}',
