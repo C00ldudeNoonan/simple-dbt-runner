@@ -61,6 +61,6 @@ jobs:
           dbt snapshot
           dbt test --fail-fast
 
-      - name: Push manifest to S3 
+      - name: Push new manifest to S3 
         run: |
           python upload_to_s3.py
