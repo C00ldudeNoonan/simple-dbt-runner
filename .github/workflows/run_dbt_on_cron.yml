@@ -1,0 +1,35 @@
+name: Scheduled DBT Run - dev
+
+on:
+  schedule:
+    - cron: "0 21 * * *"
+
+jobs:
+  update_dev_target:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOST }}
+      DATABASE: ${{ secrets.DATABASE }}
+      USERNAME: ${{ secrets.DEV_USERNAME }}
+      PASSWORD: ${{ secrets.DEV_PASSWORD }}
+      PORT: ${{ secrets.PORT }}
+      SCHEMA: ${{ secrets.DEV_SCHEMA }}
+
+    steps:
+      - uses: "actions/checkout@main"
+
+      - name: Install requirements
+        run: pip install -q -r requirements.txt
+
+      - name: Install dbt
+        run: pip install dbt
+
+      - name: dbt deps
+        run: |
+          cd project_goes_here 
+          dbt deps
+        
+      - name: dbt run
+        run: |
+          cd project_goes_here 
+          dbt run --target dev
