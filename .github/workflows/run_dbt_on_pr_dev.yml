@@ -11,8 +11,8 @@ jobs:
     env:
       HOST: ${{ secrets.HOST }}
       DATABASE: ${{ secrets.DATABASE }}
-      USERNAME: ${{ secrets.DEV_USERNAME }}
-      PASSWORD: ${{ secrets.DEV_PASSWORD }}
+      USERNAME: ${{ secrets.PROD_USERNAME }}
+      PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
       SCHEMA: ${{ secrets.DEV_SCHEMA }}
 
