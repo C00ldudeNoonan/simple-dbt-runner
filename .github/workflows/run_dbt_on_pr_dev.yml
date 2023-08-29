@@ -14,7 +14,7 @@ jobs:
       USERNAME: ${{ secrets.PROD_USERNAME }}
       PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
-      SCHEMA: ${{ secrets.DEV_SCHEMA }}
+      SCHEMA: ${{ secrets.PROD_SCHEMA }}
 
     steps:
       - uses: "actions/checkout@main"
