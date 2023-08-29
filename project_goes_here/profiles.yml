@@ -15,9 +15,7 @@ jaffle_shop:
       threads: 8
 
 # prod and dev are the same for this demo.
-  target: prod
-  outputs:
-    dev:
+    prod:
       type: postgres
       host: '{{ env_var("HOST") }}'
       user: '{{ env_var("USERNAME") }}'
