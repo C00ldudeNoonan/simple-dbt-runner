@@ -1,4 +1,7 @@
-name: Manual dbt build - prod
+name: Manual dbt run force - prod
+
+# sometimes you need to get a prod through without running your tests
+# use sparingly and your own risk
 
 on:
   workflow_dispatch:
@@ -42,6 +45,5 @@ jobs:
       - name: dbt build
         run: |
           cd project_goes_here 
-          dbt build --target prod
-          dbt snapshot --target prod
+          dbt run --target prod
 

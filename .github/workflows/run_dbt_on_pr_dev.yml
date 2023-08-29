@@ -1,8 +1,9 @@
-name: Run dbt on Merge to Main
+name: Run dbt on PR
 
 on:
-  push:
-    branches: [ "main" ]
+  pull_request:
+    branches:
+      - main
 
 jobs:
   run_on_merge:
@@ -10,10 +11,10 @@ jobs:
     env:
       HOST: ${{ secrets.HOST }}
       DATABASE: ${{ secrets.DATABASE }}
-      USERNAME: ${{ secrets.PROD_USERNAME }}
-      PASSWORD: ${{ secrets.PROD_PASSWORD }}
+      USERNAME: ${{ secrets.DEV_USERNAME }}
+      PASSWORD: ${{ secrets.DEV_PASSWORD }}
       PORT: ${{ secrets.PORT }}
-      SCHEMA: ${{ secrets.PROD_SCHEMA }}
+      SCHEMA: ${{ secrets.DEV_SCHEMA }}
 
     steps:
       - uses: "actions/checkout@main"
@@ -26,9 +27,8 @@ jobs:
           cd project_goes_here 
           dbt deps
         
-# do we need to point to a specific profile?
+# dbt build will run on the default profile (dev), so we don't need to pass profile parameter
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt build --target prod
-          dbt snapshot --target prod
+          dbt build
