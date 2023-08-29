@@ -1,6 +1,6 @@
-# Simple DBT Runners
+# Simple dbt Runners
 
-DBT Cloud: who needs it? With this repo, not you!
+dbt Cloud: who needs it? With this repo, not you!
 
 This repo gives you the ability to run DBT in production using GitHub Actions. There are several basic GH Action workflows you can take a modify for your needs: 
 
@@ -17,7 +17,7 @@ This repo gives you the ability to run DBT in production using GitHub Actions. T
     - We also assume you have a `profiles.yml` file
     - This opens a PR with our suggested changes to your `profiles.yml` file
  4. Add some environment variables to your GitHub Actions Secrets in the Settings tab. You can see which vars are needed based on the open PR.
- 5. Run the `Manual DBT Run` to test that you're good to go
+ 5. Run the `Manual dbt Run` to test that you're good to go
  6. Edit the Actions you want to keep and delete the ones you don't
 
 That's it!
