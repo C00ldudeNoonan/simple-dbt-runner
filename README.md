@@ -2,7 +2,7 @@
 
 dbt Cloud: who needs it? With this repo, not you!
 
-This repo gives you the ability to run DBT in production using GitHub Actions. There are several basic GH Action workflows you can take a modify for your needs: 
+This repo gives you the ability to run dbt in production using GitHub Actions. There are several basic GH Action workflows you can take a modify for your needs: 
 
  - run dbt commands on a schedule
  - run dbt after merging in a PR to the main branch
