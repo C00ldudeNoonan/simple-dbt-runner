@@ -1,24 +1,12 @@
-name: Manual dbt build - prod
+name: Run dbt on PR
 
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Manually trigger a dev dbt run'
-        required: false
-        type: boolean
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  update_prod_target:
+  run_on_merge:
     runs-on: ubuntu-latest
     env:
       HOST: ${{ secrets.HOST }}
@@ -39,9 +27,8 @@ jobs:
           cd project_goes_here 
           dbt deps
         
-      - name: dbt build
+# dbt build will run on the default profile (dev), so we don't need to pass profile parameter
+      - name: dbt run
         run: |
           cd project_goes_here 
-          dbt build --target prod
-          dbt snapshot --target prod
-
+          dbt build

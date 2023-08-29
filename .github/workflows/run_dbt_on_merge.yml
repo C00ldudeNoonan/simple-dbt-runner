@@ -1,4 +1,4 @@
-name: Run DBT on Merge to Main
+name: Run dbt on Merge to Main
 
 on:
   push:
@@ -30,7 +30,5 @@ jobs:
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt seed --full-refresh --target prod
-          dbt run --full-refresh --fail-fast --target prod
+          dbt build --target prod
           dbt snapshot --target prod
-          dbt test --fail-fast --target prod
