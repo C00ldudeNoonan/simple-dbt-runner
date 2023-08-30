@@ -1,4 +1,4 @@
 dbt-core==1.5.2
 # Put whatever adapter you are using here here
 dbt-postgres==1.5.2
-boto3==1.28.35
+boto3==1.28.35dbt-postgres==1.5.2

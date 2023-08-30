@@ -1,26 +1,23 @@
 config:
   send_anonymous_usage_stats: false
-
 jaffle_shop:
-  target: dev
   outputs:
     dev:
-      type: postgres
+      dbname: '{{ env_var("DATABASE") }}'
       host: '{{ env_var("HOST") }}'
-      user: '{{ env_var("USERNAME") }}'
       password: '{{ env_var("PASSWORD") }}'
       port: '{{ env_var("PORT") | int }}'
-      dbname: '{{ env_var("DATABASE") }}'
       schema: '{{ env_var("SCHEMA") }}'
       threads: 8
-
-# prod and dev are the same for this demo.
+      type: postgres
+      user: '{{ env_var("USERNAME") }}'
     prod:
-      type: postgres
+      dbname: '{{ env_var("DATABASE_NAME") }}'
       host: '{{ env_var("HOST") }}'
-      user: '{{ env_var("USERNAME") }}'
-      password: '{{ env_var("PASSWORD") }}'
+      password: '{{ env_var("PROD_PASSWORD") }}'
       port: '{{ env_var("PORT") | int }}'
-      dbname: '{{ env_var("DATABASE") }}'
-      schema: '{{ env_var("SCHEMA") }}'
+      schema: '{{ env_var("PROD_SCHEMA") }}'
       threads: 8
+      type: postgres
+      user: '{{ env_var("PROD_USERNAME") }}'
+  target: dev
