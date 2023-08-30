@@ -5,7 +5,7 @@ on:
     - cron: "*/5 * * * *"
 
 jobs:
-  update_dev_target:
+  update_prod_target:
     runs-on: ubuntu-latest
     env:
       HOST: ${{ secrets.HOST }}
