@@ -21,9 +21,6 @@ jobs:
       - name: Install requirements
         run: pip install -q -r requirements.txt
 
-      - name: Install dbt
-        run: pip install dbt
-
       - name: dbt deps
         run: |
           cd project_goes_here 
