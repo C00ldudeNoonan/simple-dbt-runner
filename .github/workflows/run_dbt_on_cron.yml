@@ -21,9 +21,6 @@ jobs:
       - name: Install requirements
         run: pip install -q -r requirements.txt
 
-      - name: Install dbt
-        run: pip install dbt
-
       - name: dbt deps
         run: |
           cd project_goes_here 
@@ -32,5 +29,7 @@ jobs:
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt build --target prod
-          dbt snapshot --target prod
+          dbt seed --full-refresh --select state:modified+
+          dbt run --full-refresh --fail-fast --models state:modified+
+          dbt snapshot
+          dbt test --fail-fast
