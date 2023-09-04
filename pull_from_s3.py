@@ -25,7 +25,7 @@ def get_docs_from_s3():
             )
     except Exception as e:
         print("The following file could not be downloaded: " + f)
-        print("Unexpected Error: " + e)
+        print("Unexpected Error: " + str(e))
 
 if __name__ == "__main__":
     get_docs_from_s3()
