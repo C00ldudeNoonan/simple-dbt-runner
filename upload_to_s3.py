@@ -13,8 +13,8 @@ files = [
     "catalog.json",
 ]
 
-# bucket = os.environ.get('AWS_S3_BUCKET')
-bucket = 'dbt-s3bucket-eywrs70vvmxj'
+bucket = os.environ.get('AWS_S3_BUCKET')
+
 
 def push_docs_to_s3():
     for f in files:
