@@ -56,7 +56,11 @@ jobs:
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt build --full-refresh --fail-fast --select state:modified+
+          if [ -f "target/manifest.json" ]; then
+            dbt build --full-refresh --fail-fast --select state:modified+
+          else
+            dbt build
+          fi
 
       - name: Push new manifest to S3 
         run: |
