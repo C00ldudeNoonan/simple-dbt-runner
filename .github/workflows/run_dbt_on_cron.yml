@@ -1,17 +1,9 @@
 name: Scheduled dbt run - prod
 
+
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
+  schedule:
+    - cron: "10 10 * * *"
 
         
 jobs:
