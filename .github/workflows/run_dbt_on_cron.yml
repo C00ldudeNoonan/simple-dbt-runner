@@ -53,8 +53,10 @@ jobs:
           cd project_goes_here 
           if [ -f "target/manifest.json" ]; then
             dbt build --full-refresh --fail-fast --select state:modified+ --state target
+            dbt docs generate
           else
             dbt build
+            dbt docs generate
           fi
 
       - name: Push new manifest to S3 
