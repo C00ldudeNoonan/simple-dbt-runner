@@ -56,10 +56,7 @@ jobs:
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt seed --full-refresh --select state:modified+
-          dbt run --full-refresh --fail-fast --models state:modified+
-          dbt snapshot
-          dbt test --fail-fast
+          dbt build --full-refresh --fail-fast --select state:modified+
 
       - name: Push new manifest to S3 
         run: |

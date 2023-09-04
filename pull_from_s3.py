@@ -8,6 +8,7 @@ folder = "project_goes_here/target"
 
 files = [
     "manifest.json",
+    "index.html", # doing this to check that the download is correct
 ]
 
 bucket = os.environ.get('AWS_S3_BUCKET')
