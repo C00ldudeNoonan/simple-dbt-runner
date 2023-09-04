@@ -29,5 +29,7 @@ jobs:
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt build --target prod
-          dbt snapshot --target prod
+          dbt seed --full-refresh --select state:modified+
+          dbt run --full-refresh --fail-fast --models state:modified+
+          dbt snapshot
+          dbt test --fail-fast
