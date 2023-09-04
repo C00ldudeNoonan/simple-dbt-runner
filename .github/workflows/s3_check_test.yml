@@ -1,0 +1,44 @@
+name: Incremental run dbt on merge to Main
+
+on:
+  # leaving this for testing
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Manually trigger a dbt run'
+        required: false
+        type: boolean
+
+jobs:
+  run_on_merge:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOST }}
+      DATABASE: ${{ secrets.DATABASE }}
+      USERNAME: ${{ secrets.PROD_USERNAME }}
+      PASSWORD: ${{ secrets.PROD_PASSWORD }}
+      PORT: ${{ secrets.PORT }}
+      SCHEMA: ${{ secrets.PROD_SCHEMA }}
+
+    steps:
+      - uses: "actions/checkout@main"
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: 'us-east-1'
+
+      - name: Look for file structure in S3
+        run: |
+          python s3_check.py

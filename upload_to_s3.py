@@ -9,6 +9,8 @@ folder = "project_goes_here/target"
 
 files = [
     "manifest.json",
+    "index.html",
+    "catalog.json",
 ]
 
 bucket = os.environ.get('AWS_S3_BUCKET')
