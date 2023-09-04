@@ -1,4 +1,4 @@
-name: Run DBT on Merge to Main
+name: Incremental run dbt on merge to Main
 
 on:
   push:
