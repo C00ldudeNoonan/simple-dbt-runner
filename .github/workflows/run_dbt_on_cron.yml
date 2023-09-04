@@ -1,9 +1,19 @@
 name: Scheduled dbt run - prod
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
 
+        
 jobs:
   update_prod_target:
     runs-on: ubuntu-latest
@@ -42,10 +52,8 @@ jobs:
           cd project_goes_here 
           if [ -f "target/manifest.json" ]; then
             dbt build --full-refresh --fail-fast --select state:modified+ --state target
-            dbt docs generate
           else
             dbt build
-            dbt docs generate
           fi
 
       - name: Push new manifest to S3 
