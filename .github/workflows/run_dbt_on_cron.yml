@@ -2,7 +2,7 @@ name: Scheduled dbt run - prod
 
 on:
   schedule:
-    - cron: "10 2 * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   update_prod_target:
