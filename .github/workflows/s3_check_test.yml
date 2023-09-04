@@ -1,4 +1,4 @@
-name: Incremental run dbt on merge to Main
+name: S3 check
 
 on:
   # leaving this for testing
@@ -31,6 +31,9 @@ jobs:
 
     steps:
       - uses: "actions/checkout@main"
+
+      - name: install requirements
+        run: pip install -q -r requirements.txt
         
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
