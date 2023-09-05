@@ -1,5 +1,4 @@
 import sys
-# import yaml
 import ruamel.yaml
 
 yaml = ruamel.yaml.YAML()
@@ -42,7 +41,6 @@ if dwh_type == 'postgres':
 
     # update the gh actions jobs
     for file, job in workflow_jobs.items():
-        # read the run_dbt.yml file
         with open('.github/workflows/'+file, 'r') as f:
             data = yaml.load(f)
 
@@ -56,7 +54,6 @@ if dwh_type == 'postgres':
             'SCHEMA': '${{ secrets.SCHEMA }}'
         }
 
-        # write the updated run_dbt.yml file
         with open('.github/workflows/'+file, 'w') as f:
             yaml.dump(data, f)
 
@@ -75,7 +72,6 @@ elif dwh_type == 'snowflake':
 
     # update the gh actions jobs
     for file, job in workflow_jobs.items():
-        # read the run_dbt.yml file
         with open('.github/workflows/'+file, 'r') as f:
             data = yaml.load(f)
 
@@ -90,7 +86,6 @@ elif dwh_type == 'snowflake':
             'WAREHOUSE': '${{ secrets.WAREHOUSE }}',
         }
 
-        # write the updated run_dbt.yml file
         with open('.github/workflows/'+file, 'w') as f:
             yaml.dump(data, f)
 
@@ -108,7 +103,6 @@ elif dwh_type == 'redshift':
 
     # update the gh actions jobs
     for file, job in workflow_jobs.items():
-        # read the run_dbt.yml file
         with open('.github/workflows/'+file, 'r') as f:
             data = yaml.load(f)
 
@@ -122,7 +116,6 @@ elif dwh_type == 'redshift':
             'SCHEMA': '${{ secrets.SCHEMA }}',
         }
 
-        # write the updated run_dbt.yml file
         with open('.github/workflows/'+file, 'w') as f:
             yaml.dump(data, f)
 
@@ -138,7 +131,6 @@ elif dwh_type == 'bigquery':
 
             # update the gh actions jobs
     for file, job in workflow_jobs.items():
-        # read the run_dbt.yml file
         with open('.github/workflows/'+file, 'r') as f:
             data = yaml.load(f)
 
@@ -148,7 +140,6 @@ elif dwh_type == 'bigquery':
             'DATASET': '${{ secrets.DATASET }}',
         }
 
-        # write the updated run_dbt.yml file
         with open('.github/workflows/'+file, 'w') as f:
             yaml.dump(data, f)
 
