@@ -5,7 +5,7 @@ dbt Cloud: who needs it? With this repo, not you!
 This repo gives you the ability to run dbt in production using GitHub Actions. There are several basic GH Action workflows you can take a modify for your needs: 
 
  - run dbt commands on a [schedule](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/.github/workflows/run_dbt_on_cron.yml)
- - run dbt after merging in a PR to the main branch
+ - run dbt after merging in a PR to the main branch (we recommend only choosing one of these at a time)
    - [full run](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/.github/workflows/run_dbt_on_merge.yml)
    - [state-aware run](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/.github/workflows/run_incremental_dbt_on_merge.yml) (only modified models)
  - dbt CI runs on PR commits to make sure your changes will work
