@@ -32,8 +32,8 @@ This will create an S3 bucket you can use for holding any DAG info and hosting y
     - This opens a PR with our suggested changes to your `profiles.yml` and `requirements.txt` files.
     - We assume if you're migrating to self-hosting you need to add a prod target to your `profiles.yml` file, so this action will do that for you and also add the db driver you indicate.
     - FYI we also assume you have a `profiles.yml` file.
- 4. Add some environment variables to your GitHub Actions secrets in the Settings tab. You can see which vars are needed based on the open PR.
-    - Additional environment variables if you want to use the [state-aware dbt build](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/.github/workflows/run_incremental_dbt_on_merge.yml):
+ 4. Add some environment variables to your GitHub Actions secrets in the Settings tab. You can see which vars are needed based on anything appended with `${{ secrets.` in the open PR.
+    - Additional environment variables you'll need if you want to use the [state-aware dbt build](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/.github/workflows/run_incremental_dbt_on_merge.yml):
       - AWS_S3_BUCKET
       - AWS_ACCESS_KEY
       - AWS_SECRET_KEY
