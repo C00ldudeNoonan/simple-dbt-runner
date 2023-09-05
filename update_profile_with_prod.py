@@ -65,14 +65,14 @@ with open('project_goes_here/profiles.yml', 'w') as f:
 # update requirements.txt with the dbt adapter depending on the type of datawarehouse
 if dwh_type == 'postgres':
     with open('requirements.txt', 'a') as f:
-        f.write("dbt-postgres==1.5.2")
+        f.write("\ndbt-postgres==1.5.2")
 elif dwh_type == 'snowflake':
     with open('requirements.txt', 'a') as f:
-        f.write("dbt-snowflake==1.5.3")
+        f.write("\ndbt-snowflake==1.5.3")
 elif dwh_type == 'redshift':
     with open('requirements.txt', 'a') as f:
-        f.write("dbt-redshift==1.6.1")
+        f.write("\ndbt-redshift==1.6.1")
 elif dwh_type == 'bigquery':
     with open('requirements.txt', 'a') as f:
-        f.write("dbt-bigquery==1.6.3")
+        f.write("\ndbt-bigquery==1.6.3")
 
