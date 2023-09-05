@@ -21,7 +21,7 @@ on:
         type: boolean
 
 jobs:
-  dbt_run:
+  run_dbt:
     runs-on: ubuntu-latest
     env:
       HOST: ${{ secrets.HOST }}
