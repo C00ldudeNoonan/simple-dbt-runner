@@ -20,4 +20,8 @@ This repo gives you the ability to run dbt in production using GitHub Actions. T
  5. Run the `Manual dbt Run` to test that you're good to go
  6. Edit the Actions you want to keep and delete the ones you don't
 
+# dbt Documentation
+- dbt documentation is pushed and pulled to a s3 bucket that is used for hosting the documentation : http://dbt-s3bucket-eywrs70vvmxj.s3-website-us-east-1.amazonaws.com/#!/overview
+  
+
 That's it!

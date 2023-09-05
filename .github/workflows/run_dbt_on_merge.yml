@@ -14,6 +14,7 @@ jobs:
       PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
       SCHEMA: ${{ secrets.PROD_SCHEMA }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
 
     steps:
       - uses: "actions/checkout@main"

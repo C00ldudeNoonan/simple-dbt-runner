@@ -11,8 +11,7 @@ files = [
     "index.html", # doing this to check that the download is correct
 ]
 
-# bucket = os.environ.get('AWS_S3_BUCKET')
-bucket = 'dbt-s3bucket-eywrs70vvmxj'
+bucket = os.environ.get('AWS_S3_BUCKET')
 
 def get_docs_from_s3():
     target_dir = Path(os.getcwd()) / folder

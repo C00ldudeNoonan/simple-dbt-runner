@@ -1,9 +1,11 @@
 name: Scheduled dbt run - prod
 
+
 on:
   schedule:
-    - cron: "10 2 * * *"
+    - cron: "10 10 * * *"
 
+        
 jobs:
   update_prod_target:
     runs-on: ubuntu-latest
@@ -14,22 +16,41 @@ jobs:
       PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
       SCHEMA: ${{ secrets.PROD_SCHEMA }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
 
     steps:
       - uses: "actions/checkout@main"
 
-      - name: Install requirements
+      - name: install requirements
         run: pip install -q -r requirements.txt
 
       - name: dbt deps
         run: |
           cd project_goes_here 
           dbt deps
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: 'us-east-1'
+
+      - name: Look for existing manifest in S3 
+        run: |
+          python pull_from_s3.py
         
       - name: dbt run
         run: |
           cd project_goes_here 
-          dbt seed --full-refresh --select state:modified+
-          dbt run --full-refresh --fail-fast --models state:modified+
-          dbt snapshot
-          dbt test --fail-fast
+          if [ -f "target/manifest.json" ]; then
+            dbt build --full-refresh --fail-fast --select state:modified+ --state target
+            dbt docs generate
+          else
+            dbt build
+            dbt docs generate
+          fi
+
+      - name: Push new manifest to S3 
+        run: |
+          python upload_to_s3.py
