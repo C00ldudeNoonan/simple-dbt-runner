@@ -15,7 +15,6 @@ files = [
 
 bucket = os.environ.get('AWS_S3_BUCKET')
 
-
 def push_docs_to_s3():
     for f in files:
         if mimetypes.guess_type(f)[0] is not None:

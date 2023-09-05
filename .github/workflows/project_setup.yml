@@ -27,7 +27,7 @@ on:
         type: boolean
 
 jobs:
-  update_prod_target:
+  project_setup:
     runs-on: ubuntu-latest
 
     steps:

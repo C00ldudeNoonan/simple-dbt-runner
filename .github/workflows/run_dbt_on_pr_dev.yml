@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  run_on_merge:
+  dbt_run_on_pr:
     runs-on: ubuntu-latest
     env:
       HOST: ${{ secrets.HOST }}

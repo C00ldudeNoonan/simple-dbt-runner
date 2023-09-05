@@ -21,7 +21,7 @@ on:
         type: boolean
 
 jobs:
-  run_on_merge:
+  dbt_run_on_merge_incremental:
     runs-on: ubuntu-latest
     env:
       HOST: ${{ secrets.HOST }}
