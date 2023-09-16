@@ -1,6 +1,6 @@
 name: Manual dbt run force - prod
 
-# sometimes you need to get a prod through without running your tests
+# sometimes you need to get a prod run through without running your tests
 # use sparingly and your own risk
 
 on:

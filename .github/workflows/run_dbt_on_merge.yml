@@ -28,7 +28,7 @@ jobs:
           dbt deps
         
 # do we need to point to a specific profile?
-      - name: dbt run
+      - name: dbt build
         run: |
           cd project_goes_here 
           dbt build --target prod

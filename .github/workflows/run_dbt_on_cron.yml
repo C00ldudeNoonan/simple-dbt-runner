@@ -40,7 +40,7 @@ jobs:
         run: |
           python pull_from_s3.py
         
-      - name: dbt run
+      - name: dbt build
         run: |
           cd project_goes_here 
           if [ -f "target/manifest.json" ]; then
