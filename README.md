@@ -22,7 +22,7 @@ To help you get set up we've put together an AWS CloudFormation Template [here i
  5. Add tags if you want, click "next"
  6. Review the information and click "Submit"
 
-This will create an S3 bucket you can use for holding any DAG info and hosting your dbt project's documentation website. **WARNING:** our template will make the bucket publicly accessible by default, please edit if you don't want a publicly hosted bucket and website.
+This will create an S3 bucket you can use for holding any DAG info and hosting your dbt project's documentation website. **WARNING:** our CloudFormation template will make the bucket publicly accessible by default, please edit if you don't want a publicly hosted bucket and website.
 
 ## How To Set Up Your dbt Project
 
@@ -43,7 +43,5 @@ This will create an S3 bucket you can use for holding any DAG info and hosting y
 # dbt Documentation
 
 dbt documentation is pushed to a static website hosted on an s3 bucket. Example here: http://dbt-s3bucket-eywrs70vvmxj.s3-website-us-east-1.amazonaws.com/#!/overview
-
-For 
 
 That's it!
