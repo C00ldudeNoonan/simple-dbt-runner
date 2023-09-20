@@ -1,0 +1,50 @@
+name: Run dbt on PR to main
+
+on:
+  pull_request:
+    types:
+    - opened
+    - reopened
+    - synchronize
+    - ready_for_review
+  push:
+    branches:
+      - '!main'
+
+jobs:
+  dbt_run_on_merge:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.HOST }}
+      DATABASE: ${{ secrets.DATABASE }}
+      USERNAME: ${{ secrets.PROD_USERNAME }}
+      PASSWORD: ${{ secrets.PROD_PASSWORD }}
+      PORT: ${{ secrets.PORT }}
+      SCHEMA: ${{ secrets.PROD_SCHEMA }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+
+    steps:
+      - uses: "actions/checkout@main"
+
+      - name: install requirements
+        run: pip install -q -r requirements.txt
+
+      - name: dbt deps
+        run: |
+          cd project_goes_here 
+          dbt deps
+
+# thanks for this datafold!
+      - name: Find Current Pull Request
+        uses: jwalton/gh-find-current-pr@v1.3.0
+        id: findPR
+        
+# do we need to point to a specific profile?
+      - name: dbt build
+        run: |
+          cd project_goes_here 
+          dbt build --target dev
+        env:
+          SCHEMA: "${{ format('{0}_{1}', 'PR_NUM', steps.findPr.outputs.pr) }}"
+
+          
