@@ -1,4 +1,4 @@
-name: Scheduled dbt run - prod
+name: scheduled clean up job - drop non-prod scheams
 
 
 on:
