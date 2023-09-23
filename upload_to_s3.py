@@ -14,7 +14,6 @@ files = [
 ]
 
 bucket = os.environ.get('AWS_S3_BUCKET')
-print(bucket)
 
 def push_docs_to_s3():
     for f in files:
