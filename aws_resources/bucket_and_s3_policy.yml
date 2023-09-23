@@ -4,15 +4,14 @@ Resources:
     Type: 'AWS::S3::Bucket'
     Properties:
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
+        BlockPublicAcls: true  # Block public ACLs
+        BlockPublicPolicy: true  # Block public bucket policies
       OwnershipControls:
         Rules:
           - ObjectOwnership: ObjectWriter
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
   BucketPolicy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:
@@ -20,7 +19,7 @@ Resources:
         Id: MyPolicy
         Version: 2012-10-17
         Statement:
-          - Sid: PublicReadForGetBucketObjects
+          - Sid: AllowAllIPs
             Effect: Allow
             Principal: '*'
             Action: 's3:GetObject'
@@ -29,15 +28,22 @@ Resources:
               - - 'arn:aws:s3:::'
                 - !Ref S3Bucket
                 - /*
-          - Sid: BucketOwnerFullControl
-            Effect: Allow
-            Principal: '*'
-            Action: 's3:PutObject'
+            Condition:
+              IpAddress:
+                aws:SourceIp:
+                  - "YOUR IP ADDRESS"
+          - Sid: DenyGetObj
+            Effect: Deny
+            Principal: "*"
+            Action: s3:GetObject
             Resource: !Join 
               - ''
               - - 'arn:aws:s3:::'
                 - !Ref S3Bucket
                 - /*
+            Condition:
+              NotIpAddress:
+                aws:SourceIp: "IP ADDRESS"
       Bucket: !Ref S3Bucket
   
   MyIAMUser:
