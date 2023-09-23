@@ -42,6 +42,6 @@ This will create an S3 bucket you can use for holding any DAG info and hosting y
 
 # dbt Documentation
 
-dbt documentation is pushed to a static website hosted on an s3 bucket. Example here: http://dbt-s3bucket-eywrs70vvmxj.s3-website-us-east-1.amazonaws.com/#!/overview
+dbt documentation is pushed to a static website hosted on an s3 bucket. Example here: [(http://dbt-s3-s3bucket-1j9140or34orl.s3-website-us-east-1.amazonaws.com)](http://dbt-s3-s3bucket-1j9140or34orl.s3-website-us-east-1.amazonaws.com)http://dbt-s3-s3bucket-1j9140or34orl.s3-website-us-east-1.amazonaws.com
 
 That's it!
