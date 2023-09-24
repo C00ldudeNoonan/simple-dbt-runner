@@ -14,7 +14,6 @@ jobs:
       PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
       SCHEMA: ${{ secrets.PROD_SCHEMA }}
-      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
 
     steps:
       - uses: "actions/checkout@main"
@@ -27,7 +26,6 @@ jobs:
           cd project_goes_here 
           dbt deps
         
-# do we need to point to a specific profile?
       - name: dbt build
         run: |
           cd project_goes_here 
