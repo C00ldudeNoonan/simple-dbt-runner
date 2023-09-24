@@ -1,10 +1,8 @@
 name: Scheduled dbt run - prod
 
-
 on:
   schedule:
     - cron: "10 10 * * *"
-
         
 jobs:
   dbt_scheduled_run:
@@ -16,7 +14,6 @@ jobs:
       PASSWORD: ${{ secrets.PROD_PASSWORD }}
       PORT: ${{ secrets.PORT }}
       SCHEMA: ${{ secrets.PROD_SCHEMA }}
-      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
 
     steps:
       - uses: "actions/checkout@main"
@@ -29,16 +26,9 @@ jobs:
           cd project_goes_here 
           dbt deps
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: 'us-east-1'
-
-      - name: Look for existing manifest in S3 
+      - name: Get manifest.json from gh-pages branch
         run: |
-          python pull_from_s3.py
+          get_manifest.sh
         
       - name: dbt build
         run: |
@@ -51,6 +41,6 @@ jobs:
             dbt docs generate
           fi
 
-      - name: Push new manifest to S3 
+      - name: Push new documentation to GH Pages
         run: |
-          python upload_to_s3.py
+          save_and_publish_docs.sh
