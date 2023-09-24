@@ -47,6 +47,8 @@ jobs:
           ./get_manifest.sh
 
       - name: dbt build
+        id: build
+        if: always()
         run: |
           cd project_goes_here 
           if [ -f "target/manifest.json" ]; then
@@ -58,5 +60,6 @@ jobs:
           fi
 
       - name: Push new documentation to GH Pages
+        if: ${{ steps.build.conclusion == 'success' }}
         run: |
-          save_and_publish_docs.sh
+          ./save_and_publish_docs.sh

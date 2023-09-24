@@ -28,7 +28,7 @@ jobs:
 
       - name: Get manifest.json from gh-pages branch
         run: |
-          get_manifest.sh
+          ./get_manifest.sh
         
       - name: dbt build
         run: |
@@ -43,4 +43,4 @@ jobs:
 
       - name: Push new documentation to GH Pages
         run: |
-          save_and_publish_docs.sh
+          ./save_and_publish_docs.sh
