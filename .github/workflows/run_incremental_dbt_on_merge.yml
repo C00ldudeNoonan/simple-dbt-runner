@@ -60,6 +60,6 @@ jobs:
           fi
 
       - name: Push new documentation to GH Pages
-        if: ${{ failure() && steps.build.conclusion == 'success' }}
+        if: ${{ (success() || failure()) && steps.build.conclusion == 'success' }}
         run: |
           ./save_and_publish_docs.sh
