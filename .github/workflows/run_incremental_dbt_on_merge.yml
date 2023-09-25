@@ -45,14 +45,15 @@ jobs:
           cd project_goes_here 
           dbt deps
 
-      - name: Get manifest.json from gh-pages branch
-        run: |
-          ./get_manifest.sh
+      # - name: Get manifest.json from gh-pages branch
+      #   run: |
+      #     ./get_manifest.sh
 
       - name: dbt build
         id: build
         if: ${{ always() && '!cancelled()' }}
         run: |
+          ./get_manifest.sh
           cd project_goes_here 
           if [ -f "target/manifest.json" ]; then
             dbt build --full-refresh --fail-fast --select state:modified+ --state target
