@@ -2,7 +2,7 @@
 set -e
 
 # try to get the manifest from the gh-pages branch
-if ! git checkout gh-pages -- docs/manifest.json; then
+if ! git checkout gh-pages -- manifest.json; then
   echo "Failed to get manifest.json from gh-pages branch"
   exit 1
 fi
@@ -13,4 +13,4 @@ if [ ! -d "project_goes_here/target" ]; then
 fi
 
 # copy the manifest.json to the target directory
-cp docs/manifest.json project_goes_here/target/manifest.json
+cp manifest.json project_goes_here/target/manifest.json
