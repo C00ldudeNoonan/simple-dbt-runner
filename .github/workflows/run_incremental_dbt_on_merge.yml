@@ -32,7 +32,7 @@ jobs:
       SCHEMA: ${{ secrets.PROD_SCHEMA }}
 
     steps:
-      - uses: "actions/checkout@main"
+      - uses: "actions/checkout@v4"
 
       - name: install requirements
         run: pip install -q -r requirements.txt
