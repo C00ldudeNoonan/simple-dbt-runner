@@ -2,7 +2,7 @@
 set -e
 
 git fetch
-git branch
+git checkout origin/gh-pages manifest.json
 
 # # try to get the manifest from the gh-pages branch
 # if ! git checkout gh-pages manifest.json; then
