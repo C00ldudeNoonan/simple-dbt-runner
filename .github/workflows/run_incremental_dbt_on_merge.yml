@@ -33,6 +33,9 @@ jobs:
 
     steps:
       - uses: "actions/checkout@v4"
+        with:
+          ref: gh-pages
+      - uses: "actions/checkout@v4"
 
       - name: install requirements
         run: pip install -q -r requirements.txt
@@ -42,14 +45,10 @@ jobs:
           cd project_goes_here 
           dbt deps
 
-      - uses: "actions/checkout@v4"
-        with:
-          ref: gh-pages
       - name: Get manifest.json from gh-pages branch
         run: |
           ./get_manifest.sh
 
-      - uses: "actions/checkout@main"
       - name: dbt build
         id: build
         if: ${{ always() && '!cancelled()' }}
