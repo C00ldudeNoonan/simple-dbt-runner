@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
+git fetch
+
 # try to get the manifest from the gh-pages branch
-if ! git checkout gh-pages -- manifest.json; then
+if ! git checkout gh-pages manifest.json; then
   echo "Failed to get manifest.json from gh-pages branch"
   exit 1
 fi
