@@ -42,10 +42,14 @@ jobs:
           cd project_goes_here 
           dbt deps
 
+      - uses: "actions/checkout@v4"
+        with:
+          ref: gh-pages
       - name: Get manifest.json from gh-pages branch
         run: |
           ./get_manifest.sh
 
+      - uses: "actions/checkout@main"
       - name: dbt build
         id: build
         if: ${{ always() && '!cancelled()' }}
