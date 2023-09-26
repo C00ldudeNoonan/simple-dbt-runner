@@ -66,4 +66,4 @@ final as (
 
 )
 
-select 1
+select * from final
