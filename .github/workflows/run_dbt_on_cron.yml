@@ -33,8 +33,8 @@ jobs:
       - name: dbt build
         run: |
           cd project_goes_here 
-          if [ -f "target/manifest.json" ]; then
-            dbt build --full-refresh --fail-fast --select state:modified+ --state target
+          if [ -f "prev_run_state/manifest.json" ]; then
+            dbt build --full-refresh --fail-fast --select state:modified+ --state prev_run_state
             dbt docs generate
           else
             dbt build
