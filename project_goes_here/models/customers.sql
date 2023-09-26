@@ -66,4 +66,4 @@ final as (
 
 )
 
-select * from customers
+select 1
