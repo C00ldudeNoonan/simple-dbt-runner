@@ -55,7 +55,7 @@ jobs:
         run: |
           cd project_goes_here 
           if [ -f "target/manifest.json" ]; then
-            dbt build --full-refresh --fail-fast --select state:modified+ --state manifest.json
+            dbt build --full-refresh --fail-fast --select state:modified+ --state project_goes_here/target
             dbt docs generate
           else
             dbt build
