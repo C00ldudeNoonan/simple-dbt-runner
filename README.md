@@ -10,19 +10,7 @@ This repo gives you the ability to run dbt in production using GitHub Actions. T
    - [state-aware run](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/.github/workflows/run_incremental_dbt_on_merge.yml) (only modified models)
  - dbt CI runs on PR commits to make sure your changes will work
 
-The state-aware workflow requires an S3 bucket for persisting the `manifest.json` file. We also take advantage of the S3 bucket to host your project's documentation website.
-
-### S3 bucket notes
-
-To help you get set up we've put together an AWS CloudFormation Template [here in the repo](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/aws_resources/bucket_and_s3_policy.yml). 
- 1. Log in to the AWS Console and open [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/)
- 2. Click "Create Stack"
- 3. Under "Specify Template", choose "Upload a template file" and upload our template from the repo
- 4. Click "next"
- 5. Add tags if you want, click "next"
- 6. Review the information and click "Submit"
-
-This will create an S3 bucket you can use for holding any DAG info.
+The state-aware workflow will look for the `manifest.json` file in a branch called `gh-pages`. We also take advantage of that branch to host your project's documentation website.
 
 ## How To Set Up Your dbt Project
 
@@ -32,17 +20,17 @@ This will create an S3 bucket you can use for holding any DAG info.
     - This opens a PR with our suggested changes to your `profiles.yml` and `requirements.txt` files.
     - We assume if you're migrating to self-hosting you need to add a prod target to your `profiles.yml` file, so this action will do that for you and also add the db driver you indicate.
     - FYI we also assume you have a `profiles.yml` file.
- 4. Add some environment variables to your GitHub Actions secrets in the Settings tab. You can see which vars are needed based on anything appended with `${{ secrets.` in the open PR.
-    - Additional environment variables you'll need if you want to use the [state-aware dbt build](https://github.com/C00ldudeNoonan/simple-dbt-runner/blob/main/.github/workflows/run_incremental_dbt_on_merge.yml):
-      - AWS_S3_BUCKET
-      - AWS_ACCESS_KEY
-      - AWS_SECRET_KEY
+ 4. Add some environment variables to your GitHub Actions secrets in the Settings tab. You can see which vars are needed based on anything appended with `${{ secrets.` in the open PR. You might need to slightly edit this PR based on your project setup.
  5. Run the `Manual dbt Run` to test that you're good to go.
  6. Edit the Actions you want to keep and delete the ones you don't
 
 # dbt Documentation
 
-dbt documentation is pushed to github pages. If you are using Github Enterprise, the pages are automatically secured behind github SSO. Hosting your dbt docs is highly contextual based on your organization. There are proven patterns for shipping dbt docs to netlify, confluence and many other targets. 
+dbt documentation is pushed to Github Pages. If you are using Github Enterprise, the pages are automatically secured behind Github SSO. Hosting your dbt docs is highly contextual based on your organization. There are proven patterns for shipping dbt docs to netlify, confluence and many other targets.
+
+If using GH Pages, the only manual configuration required for hosting your dbt docs is to set it to run off the root directory of the `gh-pages` branch. You can configure this in your Github repo's Settings > Pages. Once you set that up it will looks like [this](https://c00ldudenoonan.github.io/simple-dbt-runner/#!/overview)
+
+**WARNING**: if you do not have Gitub Enterprise and you set up the documentation hosting your page might be publicly accessible. Please review [their docs](https://pages.github.com/).
 
 # Acknowledgements & Notes
 

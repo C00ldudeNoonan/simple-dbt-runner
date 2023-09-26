@@ -25,10 +25,6 @@ jobs:
         run: |
           cd project_goes_here 
           dbt deps
-
-      - name: Get manifest.json from gh-pages branch
-        run: |
-          ./get_manifest.sh
         
       - name: dbt run operation
         run: |
