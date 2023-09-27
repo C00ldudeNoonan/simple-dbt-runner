@@ -1,8 +1,21 @@
 name: scheduled clean up job - drop non-prod scheams
 
 on:
-  schedule:
-    - cron: "0 12 * * *"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Manually trigger a dbt run'
+        required: false
+        type: boolean
         
 jobs:
   dbt_scheduled_cleanup_run:
