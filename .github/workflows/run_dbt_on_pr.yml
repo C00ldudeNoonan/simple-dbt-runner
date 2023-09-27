@@ -2,11 +2,8 @@ name: Run dbt on PR to main
 
 on:
   pull_request:
-    types:
-    - opened
-    - reopened
-    - synchronize
-    - ready_for_review
+    branches:
+      - main
   push:
     branches:
       - '!main'
