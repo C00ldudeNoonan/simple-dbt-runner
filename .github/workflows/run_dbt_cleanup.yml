@@ -29,4 +29,4 @@ jobs:
       - name: dbt run operation
         run: |
           cd project_goes_here 
-          dbt run-operation drop_orphanate_tables --args '{dry_run: "true"}'
+          dbt run-operation drop_old_relations --args '{dry_run: "true"}'
