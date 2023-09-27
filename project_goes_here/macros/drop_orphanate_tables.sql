@@ -2,13 +2,6 @@
 -- to run the delete, run w/o the args
 
 {% macro drop_old_relations(dry_run='false') %}
-{% if execute %}
-  {% set current_models=[] %}
-  {% for node in graph.nodes.values()
-     | selectattr("resource_type", "in", ["model", "seed", "snapshot"])%}
-    {% do current_models.append(node.name) %}
-  {% endfor %}
-{% endif %}
 {% set cleanup_query %}
       with models_to_drop as (
         select
@@ -25,7 +18,6 @@
   {% endset %}
 {% do log(cleanup_query, info=True) %}
 {% set drop_commands = run_query(cleanup_query).columns[0].values() %}
-{% do log('debug flag', True) %}
 {% if drop_commands %}
   {% for drop_command in drop_commands %}
     {% do log(drop_command, True) %}
