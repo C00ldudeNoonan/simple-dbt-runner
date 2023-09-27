@@ -1,7 +1,7 @@
 config:
   send_anonymous_usage_stats: false
 
-jaffle_shop:
+jaffle_shop: 
   target: dev
   outputs:
     dev:
