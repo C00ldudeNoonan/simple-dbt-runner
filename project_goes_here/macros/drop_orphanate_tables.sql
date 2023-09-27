@@ -1,5 +1,6 @@
 -- Execute with: dbt run-operation drop_old_relations --args '{"dry_run": True}'
 -- to run the delete, run w/o the args
+-- this simplified version simply drops schemas that start with PR
 
 {% macro drop_old_relations(dry_run='false') %}
 {% set cleanup_query %}
