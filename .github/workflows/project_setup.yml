@@ -36,7 +36,6 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Install dependencies
       - name: install requirements
         run: pip install -q -r requirements.txt
 
