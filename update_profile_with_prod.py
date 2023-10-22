@@ -10,7 +10,7 @@ workflow_jobs = {
     'run_dbt_on_cron.yml': 'dbt_scheduled_run',
     'run_incremental_dbt_on_merge.yml': 'dbt_run_on_merge_incremental',
     'run_dbt_on_pr.yml' : 'dbt_run_on_pr',
-    'run_dbt_cleanup.yml' : 'dbt_run_cleanup'
+    'run_dbt_cleanup.yml' : 'dbt_scheduled_cleanup_run'
 }
 
 # Load the profiles.yml file
