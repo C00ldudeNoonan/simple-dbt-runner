@@ -49,6 +49,6 @@ jobs:
           commit-message: "Add prod target to profiles.yml"
           branch: "add-prod-target"
           base: "main"
-          token: {{ secrets.WORKFLOW_TOKEN }}
+          token: ${{ secrets.WORKFLOW_TOKEN }}
           body: |
             This pull request adds a new target called "prod" to the `profiles.yml` file
