@@ -15,14 +15,15 @@ The state-aware workflow will look for the `manifest.json` file in a branch call
 ## How To Set Up Your dbt Project
 
  1. Fork this repo and copy your whole dbt project into the `project_goes_here` folder.
- 2. Update your repository settings to allow GitHub Actions to create PRs. This setting can be found in a repository's settings under Actions > General > Workflow permissions. [This is what it should look like.](https://user-images.githubusercontent.com/21294829/263915123-512bf335-6796-4ae3-a7dc-ad1cf6c4035f.png)
- 3. Go to the Actions tab and run the `Project Setup` workflow, making sure to select the type of database you want to set up
+ 2. Create a [Personal Access Token](https://github.com/settings/tokens?type=beta) with Workflows (Read/Write) permission and add it to the repository action secrets with key WORKFLOW_TOKEN
+ 3. Update your repository settings to allow GitHub Actions to create PRs. This setting can be found in a repository's settings under Actions > General > Workflow permissions. [This is what it should look like.](https://user-images.githubusercontent.com/21294829/263915123-512bf335-6796-4ae3-a7dc-ad1cf6c4035f.png)
+ 4. Go to the Actions tab and run the `Project Setup` workflow, making sure to select the type of database you want to set up
     - This opens a PR with our suggested changes to your `profiles.yml` and `requirements.txt` files.
     - We assume if you're migrating to self-hosting you need to add a prod target to your `profiles.yml` file, so this action will do that for you and also add the db driver you indicate.
     - FYI we also assume you have a `profiles.yml` file.
- 4. Add some environment variables to your GitHub Actions secrets in the Settings tab. You can see which vars are needed based on anything appended with `${{ secrets.` in the open PR. You might need to slightly edit this PR based on your project setup.
- 5. Run the `Manual dbt Run` to test that you're good to go.
- 6. Edit the Actions you want to keep and delete the ones you don't
+ 5. Add some environment variables to your GitHub Actions secrets in the Settings tab. You can see which vars are needed based on anything appended with `${{ secrets.` in the open PR. You might need to slightly edit this PR based on your project setup.
+ 6. Run the `Manual dbt Run` to test that you're good to go.
+ 7. Edit the Actions you want to keep and delete the ones you don't
 
 # dbt Documentation
 

@@ -36,9 +36,8 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Install dependencies
-        run: |
-          pip install pyyaml
+      - name: install requirements
+        run: pip install -q -r requirements.txt
 
       - name: Add prod target to profiles.yml
         run: "python update_profile_with_prod.py ${{ github.event.inputs.DatawarehouseType }}"
@@ -50,5 +49,6 @@ jobs:
           commit-message: "Add prod target to profiles.yml"
           branch: "add-prod-target"
           base: "main"
+          token: ${{ secrets.WORKFLOW_TOKEN }}
           body: |
             This pull request adds a new target called "prod" to the `profiles.yml` file
