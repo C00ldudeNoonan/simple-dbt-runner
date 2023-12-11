@@ -3,3 +3,4 @@ dbt-core==1.5.2
 ruamel.yaml==0.17.32
 # Put whatever adapter you are using here here
 dbt-postgres==1.5.2
+dbt-bigquery==1.6.3
