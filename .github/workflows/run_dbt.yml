@@ -26,6 +26,14 @@ jobs:
     steps:
     - uses: "actions/checkout@main"
 
+    - name: Create file
+      run: cat google-key.json | base64
+
+    - name: Putting data
+      env:
+        DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      run: echo $DATA > google-key.json
+
     - name: install requirements
       run: pip install -q -r requirements.txt
 

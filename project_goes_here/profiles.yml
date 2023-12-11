@@ -4,17 +4,11 @@ jaffle_shop:
     dev:
       type: bigquery
       method: service-account
-      project: bicycle-health-dev
-      schema: geoffk_bicycle
+      project: '{{ env_var("PROJECT_NAME") }}'
+      schema: '{{ env_var("DATASET") }}'
       threads: 4
       keyfile: ../key.json
       timeout_seconds: 600
       location: US # Optional, one of US or EU
       priority: interactive
       retries: 1
-    prod:
-      type: bigquery
-      method: oauth
-      project: '{{ env_var("PROJECT_NAME") }}'
-      dataset: '{{ env_var("DATASET") }}'
-      threads: 8
