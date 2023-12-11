@@ -1,26 +1,20 @@
-config:
-  send_anonymous_usage_stats: false
-
-jaffle_shop: 
+default:
   target: dev
   outputs:
     dev:
-      type: postgres
-      host: '{{ env_var("HOST") }}'
-      user: '{{ env_var("USERNAME") }}'
-      password: '{{ env_var("PASSWORD") }}'
-      port: '{{ env_var("PORT") | int }}'
-      dbname: '{{ env_var("DATABASE") }}'
-      schema: '{{ env_var("SCHEMA") }}'
-      threads: 8
-
-# prod and dev are the same for this demo.
+      type: bigquery
+      method: service-account
+      project: bicycle-health-dev
+      schema: geoffk_bicycle
+      threads: 4
+      keyfile: ../key.json
+      timeout_seconds: 600
+      location: US # Optional, one of US or EU
+      priority: interactive
+      retries: 1
     prod:
-      type: postgres
-      host: '{{ env_var("HOST") }}'
-      user: '{{ env_var("USERNAME") }}'
-      password: '{{ env_var("PASSWORD") }}'
-      port: '{{ env_var("PORT") | int }}'
-      dbname: '{{ env_var("DATABASE") }}'
-      schema: '{{ env_var("SCHEMA") }}'
+      type: bigquery
+      method: oauth
+      project: '{{ env_var("PROJECT_NAME") }}'
+      dataset: '{{ env_var("DATASET") }}'
       threads: 8
