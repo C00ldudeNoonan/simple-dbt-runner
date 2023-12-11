@@ -44,7 +44,7 @@ jobs:
 
     - name: dbt build
       run: |
-        cat google-key.json
+        python print_json.py
         cd project_goes_here 
         dbt build --target prod
         dbt snapshot --target prod
