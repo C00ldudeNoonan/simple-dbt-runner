@@ -3,44 +3,51 @@ name: Run dbt on PR to main
 on:
   pull_request:
     branches:
-      - main
+    - main
   push:
     branches:
-      - '!main'
+    - '!main'
 
 jobs:
   dbt_run_on_pr:
     runs-on: ubuntu-latest
     env:
-      HOST: ${{ secrets.HOST }}
-      DATABASE: ${{ secrets.DATABASE }}
-      USERNAME: ${{ secrets.PROD_USERNAME }}
-      PASSWORD: ${{ secrets.PROD_PASSWORD }}
-      PORT: ${{ secrets.PORT }}
-      SCHEMA: ${{ secrets.PROD_SCHEMA }}
-
+      PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+      DATASET: ${{ secrets.DATASET }}
     steps:
-      - uses: "actions/checkout@main"
+    - uses: "actions/checkout@main"
 
-      - name: install requirements
-        run: pip install -q -r requirements.txt
+    - name: install requirements
+      run: pip install -q -r requirements.txt
 
-      - name: dbt deps
-        run: |
-          cd project_goes_here 
-          dbt deps
+    - name: Create file
+      run: touch google-key.json
+
+    - name: Putting data
+      env:
+        DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      run: echo $DATA > google-key.json
+
+    - name: dbt deps
+      run: |
+        cd project_goes_here 
+        dbt deps
+
+    - name: Get manifest.json from gh-pages branch
+      run: |
+        ./get_manifest.sh
 
 # thanks for this datafold!
-      - name: Find Current Pull Request
-        uses: jwalton/gh-find-current-pr@v1.3.0
-        id: findPR
-        
+    - name: Find Current Pull Request
+      uses: jwalton/gh-find-current-pr@v1.3.0
+      id: findPR
+
 # do we need to point to a specific profile?
-      - name: dbt build
-        run: |
-          cd project_goes_here 
-          dbt build --target dev
-        env:
-          SCHEMA: "${{ format('{0}_{1}', 'PR_NUM', steps.findPr.outputs.pr) }}"
+    - name: dbt build
+      run: |
+        cd project_goes_here 
+        dbt build --target dev --select state:modified+ --state prev_run_state
+      env:
+        SCHEMA: "${{ format('{0}_{1}', 'PR_NUM', steps.findPr.outputs.pr) }}"
 
           

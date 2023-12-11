@@ -1,46 +1,66 @@
 name: Scheduled dbt run - prod
 
+#on:
+#  schedule:
+#  - cron: "10 10 * * *"
+
+
 on:
-  schedule:
-    - cron: "10 10 * * *"
-        
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Manually trigger a dbt run'
+        required: false
+        type: boolean
 jobs:
   dbt_scheduled_run:
     runs-on: ubuntu-latest
     env:
-      HOST: ${{ secrets.HOST }}
-      DATABASE: ${{ secrets.DATABASE }}
-      USERNAME: ${{ secrets.PROD_USERNAME }}
-      PASSWORD: ${{ secrets.PROD_PASSWORD }}
-      PORT: ${{ secrets.PORT }}
-      SCHEMA: ${{ secrets.PROD_SCHEMA }}
-
+      PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+      DATASET: ${{ secrets.DATASET }}
     steps:
-      - uses: "actions/checkout@main"
+    - uses: "actions/checkout@main"
 
-      - name: install requirements
-        run: pip install -q -r requirements.txt
+    - name: Create file
+      run: touch google-key.json
 
-      - name: dbt deps
-        run: |
-          cd project_goes_here 
-          dbt deps
+    - name: Putting data
+      env:
+        DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      run: echo $DATA > google-key.json
 
-      - name: Get manifest.json from gh-pages branch
-        run: |
-          ./get_manifest.sh
-        
-      - name: dbt build
-        run: |
-          cd project_goes_here 
-          if [ -f "prev_run_state/manifest.json" ]; then
-            dbt build --full-refresh --fail-fast --select state:modified+ --state prev_run_state
-            dbt docs generate
-          else
-            dbt build
-            dbt docs generate
-          fi
+    - name: install requirements
+      run: pip install -q -r requirements.txt
 
-      - name: Push new documentation to GH Pages
-        run: |
-          ./save_and_publish_docs.sh
+    - name: dbt deps
+      run: |
+        cd project_goes_here 
+        dbt deps
+
+    - name: Get manifest.json from gh-pages branch
+      run: |
+        ./get_manifest.sh
+
+    - name: dbt build
+      run: |
+        cd project_goes_here 
+        if [ -f "prev_run_state/manifest.json" ]; then
+          dbt build --full-refresh --fail-fast --select state:modified+ --state prev_run_state
+          dbt docs generate
+        else
+          dbt build
+          dbt docs generate
+        fi
+
+    - name: Push new documentation to GH Pages
+      run: |
+        ./save_and_publish_docs.sh
