@@ -27,7 +27,7 @@ jobs:
     - uses: "actions/checkout@main"
 
     - name: Create file
-      run: cat google-key.json | base64
+      run: touch google-key.json | base64
 
     - name: Putting data
       env:

@@ -1,2 +1,4 @@
 project_goes_here/logs
 project_goes_here/target
+google-key.json
+project_goes_here/dbt_packages
