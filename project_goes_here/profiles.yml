@@ -1,7 +1,7 @@
 jaffle_shop:
-  target: dev
+  target: prod
   outputs:
-    dev:
+    prod:
       type: bigquery
       method: service-account
       project: '{{ env_var("PROJECT_NAME") }}'
