@@ -7,7 +7,7 @@ jaffle_shop:
       project: '{{ env_var("PROJECT_NAME") }}'
       schema: '{{ env_var("DATASET") }}'
       threads: 4
-      keyfile: ../key.json
+      keyfile: ../google-key.json
       timeout_seconds: 600
       location: US # Optional, one of US or EU
       priority: interactive
