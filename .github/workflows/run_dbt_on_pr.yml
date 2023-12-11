@@ -20,10 +20,22 @@ jobs:
     - name: install requirements
       run: pip install -q -r requirements.txt
 
+    - name: Create file
+      run: touch google-key.json
+
+    - name: Putting data
+      env:
+        DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      run: echo $DATA > google-key.json
+
     - name: dbt deps
       run: |
         cd project_goes_here 
         dbt deps
+
+    - name: Get manifest.json from gh-pages branch
+      run: |
+        ./get_manifest.sh
 
 # thanks for this datafold!
     - name: Find Current Pull Request
@@ -34,7 +46,7 @@ jobs:
     - name: dbt build
       run: |
         cd project_goes_here 
-        dbt build --target dev
+        dbt build --target dev --select state:modified+ --state prev_run_state
       env:
         SCHEMA: "${{ format('{0}_{1}', 'PR_NUM', steps.findPr.outputs.pr) }}"
 

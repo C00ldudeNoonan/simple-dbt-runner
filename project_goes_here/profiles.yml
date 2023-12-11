@@ -12,3 +12,14 @@ jaffle_shop:
       location: US # Optional, one of US or EU
       priority: interactive
       retries: 1
+    dev:
+      type: bigquery
+      method: service-account
+      project: '{{ env_var("PROJECT_NAME") }}'
+      schema: '{{ env_var("DATASET") }}'
+      threads: 4
+      keyfile: ../google-key.json
+      timeout_seconds: 600
+      location: US # Optional, one of US or EU
+      priority: interactive
+      retries: 1
