@@ -27,7 +27,7 @@ jobs:
     - uses: "actions/checkout@main"
 
     - name: Create file
-      run: touch google-key.json | base64
+      run: touch google-key.json
 
     - name: Putting data
       env:
@@ -44,7 +44,6 @@ jobs:
 
     - name: dbt build
       run: |
-        python print_json.py
         cd project_goes_here 
         dbt build --target prod
         dbt snapshot --target prod
