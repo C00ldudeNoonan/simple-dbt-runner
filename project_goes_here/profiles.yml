@@ -1,26 +1,25 @@
-config:
-  send_anonymous_usage_stats: false
-
-jaffle_shop: 
-  target: dev
+jaffle_shop:
+  target: prod
   outputs:
-    dev:
-      type: postgres
-      host: '{{ env_var("HOST") }}'
-      user: '{{ env_var("USERNAME") }}'
-      password: '{{ env_var("PASSWORD") }}'
-      port: '{{ env_var("PORT") | int }}'
-      dbname: '{{ env_var("DATABASE") }}'
-      schema: '{{ env_var("SCHEMA") }}'
-      threads: 8
-
-# prod and dev are the same for this demo.
     prod:
-      type: postgres
-      host: '{{ env_var("HOST") }}'
-      user: '{{ env_var("USERNAME") }}'
-      password: '{{ env_var("PASSWORD") }}'
-      port: '{{ env_var("PORT") | int }}'
-      dbname: '{{ env_var("DATABASE") }}'
-      schema: '{{ env_var("SCHEMA") }}'
-      threads: 8
+      type: bigquery
+      method: service-account
+      project: '{{ env_var("PROJECT_NAME") }}'
+      schema: '{{ env_var("DATASET") }}'
+      threads: 4
+      keyfile: ../google-key.json
+      timeout_seconds: 600
+      location: US # Optional, one of US or EU
+      priority: interactive
+      retries: 1
+    dev:
+      type: bigquery
+      method: service-account
+      project: '{{ env_var("PROJECT_NAME") }}'
+      schema: '{{ env_var("DATASET") }}'
+      threads: 4
+      keyfile: ../google-key.json
+      timeout_seconds: 600
+      location: US # Optional, one of US or EU
+      priority: interactive
+      retries: 1

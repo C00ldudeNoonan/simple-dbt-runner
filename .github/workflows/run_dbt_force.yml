@@ -24,26 +24,21 @@ jobs:
   run_dbt:
     runs-on: ubuntu-latest
     env:
-      HOST: ${{ secrets.HOST }}
-      DATABASE: ${{ secrets.DATABASE }}
-      USERNAME: ${{ secrets.PROD_USERNAME }}
-      PASSWORD: ${{ secrets.PROD_PASSWORD }}
-      PORT: ${{ secrets.PORT }}
-      SCHEMA: ${{ secrets.PROD_SCHEMA }}
-
+      PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+      DATASET: ${{ secrets.DATASET }}
     steps:
-      - uses: "actions/checkout@main"
+    - uses: "actions/checkout@main"
 
-      - name: install requirements
-        run: pip install -q -r requirements.txt
+    - name: install requirements
+      run: pip install -q -r requirements.txt
 
-      - name: dbt deps
-        run: |
-          cd project_goes_here 
-          dbt deps
-        
-      - name: dbt build
-        run: |
-          cd project_goes_here 
-          dbt run --target prod
+    - name: dbt deps
+      run: |
+        cd project_goes_here 
+        dbt deps
+
+    - name: dbt build
+      run: |
+        cd project_goes_here 
+        dbt run --target prod
 
